@@ -28,6 +28,7 @@
 #define QTEST_
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define q_test(_name)                                                           \
   do {                                                                          \
@@ -65,5 +66,35 @@
   }                                                                             \
                                                                                 \
   static char unused = 0                                                        \
+
+#ifndef Q_ASSERT_BUFFER_SIZE
+#define Q_ASSERT_BUFFER_SIZE 4096
+#endif
+#ifndef Q_MAGIC
+#define Q_MAGIC "\xAE\x40\xAE\x40"
+#endif
+
+#define _q_to_string(fmt1, fmt2, ...)                                           \
+  char buf[Q_ASSERT_BUFFER_SIZE];                                               \
+  char *second;                                                                 \
+  char *first;                                                                  \
+  sprintf(&buf[0], fmt1 Q_MAGIC fmt2, __VA_ARGS__);                             \
+  second = strstr(&buf[0], Q_MAGIC);                                            \
+  *second = 0;                                                                  \
+  second += 4;                                                                  \
+  first = &buf[0]
+
+#define q_throw(fmt, ...)                                                       \
+  char *errbuf = malloc(Q_ASSERT_BUFFER_SIZE);                                  \
+  sprintf(errbuf, fmt, __VA_ARGS__);                                            \
+  return errbuf
+
+#define q_should_eq(fmt1, fmt2, ...)                                            \
+  {                                                                             \
+    _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
+    if (strcmp(first, second) != 0) {                                           \
+      q_throw("%s should equal %s", first, second);                             \
+    }                                                                           \
+  }
 
 #endif
