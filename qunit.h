@@ -63,6 +63,7 @@
         (result ? "FAILED" : "OK"),                                             \
         passed, total,                                                          \
         total ? (int)(((float)passed / (float)total) * 100.0f) : 100);          \
+    return result;                                                              \
   }                                                                             \
                                                                                 \
   static char unused = 0                                                        \
