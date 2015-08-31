@@ -3,6 +3,8 @@ The stupidly simple, but beautiful, unit testing framework.
 
 Literally three macros (with some optional assertion macros). That's it.
 
+![Example screenshot](screenshot.png)
+
 ## Usage
 
 ```c
