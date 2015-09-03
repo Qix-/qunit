@@ -99,4 +99,12 @@
     }                                                                           \
   }
 
+#define q_should_not_eq(fmt1, fmt2, ...)                                        \
+  {                                                                             \
+    _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
+    if (strcmp(first, second) == 0) {                                           \
+      q_throw("%s should not equal %s", first, second);                         \
+    }                                                                           \
+  }
+
 #endif
