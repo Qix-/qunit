@@ -77,33 +77,33 @@
 #endif
 
 #define _q_to_string(fmt1, fmt2, ...)                                           \
-  char buf[Q_ASSERT_BUFFER_SIZE];                                               \
-  char *second;                                                                 \
-  char *first;                                                                  \
-  sprintf(&buf[0], fmt1 Q_MAGIC fmt2, __VA_ARGS__);                             \
-  second = strstr(&buf[0], Q_MAGIC);                                            \
-  *second = 0;                                                                  \
-  second += 4;                                                                  \
-  first = &buf[0]
+  char _Q__buf[Q_ASSERT_BUFFER_SIZE];                                           \
+  char *_Q__second;                                                             \
+  char *_Q__first;                                                              \
+  sprintf(&_Q__buf[0], fmt1 Q_MAGIC fmt2, __VA_ARGS__);                         \
+  _Q__second = strstr(&_Q__buf[0], Q_MAGIC);                                    \
+  *_Q__second = 0;                                                              \
+  _Q__second += 4;                                                              \
+  _Q__first = &_Q__buf[0]
 
 #define q_throw(fmt, ...)                                                       \
-  char *errbuf = malloc(Q_ASSERT_BUFFER_SIZE);                                  \
-  sprintf(errbuf, fmt, __VA_ARGS__);                                            \
-  return errbuf
+  char *_Q__errbuf = malloc(Q_ASSERT_BUFFER_SIZE);										          \
+  sprintf(_Q__errbuf, fmt, __VA_ARGS__);                                        \
+  return _Q__errbuf
 
 #define q_should_eq(fmt1, fmt2, ...)                                            \
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
-    if (strcmp(first, second) != 0) {                                           \
-      q_throw("%s should equal %s", first, second);                             \
+    if (strcmp(_Q__first, _Q__second) != 0) {                                   \
+      q_throw("%s should equal %s", _Q__first, _Q__second);                     \
     }                                                                           \
   }
 
 #define q_should_not_eq(fmt1, fmt2, ...)                                        \
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
-    if (strcmp(first, second) == 0) {                                           \
-      q_throw("%s should not equal %s", first, second);                         \
+    if (strcmp(_Q__first, _Q__second) == 0) {                                   \
+      q_throw("%s should not equal %s", _Q__first, _Q__second);                 \
     }                                                                           \
   }
 
