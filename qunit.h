@@ -95,7 +95,8 @@
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
     if (strcmp(_Q__first, _Q__second) != 0) {                                   \
-      q_throw("%s should equal %s", _Q__first, _Q__second);                     \
+      q_throw("\x1b[31;7m%s\x1b[39;27m should equal \x1b[31;7m%s\x1b[39;27m",   \
+    _Q__first, _Q__second);                                                     \
     }                                                                           \
   }
 
@@ -103,7 +104,8 @@
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
     if (strcmp(_Q__first, _Q__second) == 0) {                                   \
-      q_throw("%s should not equal %s", _Q__first, _Q__second);                 \
+      q_throw("\x1b[31;7m%s\x1b[3927m should not equal \x1b[31;7m%s\x1b[39;27m",\
+        _Q__first, _Q__second);                                                 \
     }                                                                           \
   }
 
