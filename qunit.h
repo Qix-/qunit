@@ -87,7 +87,7 @@
   _Q__first = &_Q__buf[0]
 
 #define q_throw(fmt, ...)                                                       \
-  char *_Q__errbuf = malloc(Q_ASSERT_BUFFER_SIZE);										          \
+  char *_Q__errbuf = malloc(Q_ASSERT_BUFFER_SIZE);                              \\
   sprintf(_Q__errbuf, fmt, __VA_ARGS__);                                        \
   return _Q__errbuf
 
