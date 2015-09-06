@@ -86,9 +86,16 @@
   _Q__second += 4;                                                              \
   _Q__first = &_Q__buf[0]
 
+#ifdef _WIN32
+# define _Q__ANSI_DIM "\x1b[30;1m"
+#else
+# define _Q__ANSI_DIM "\x1b[2m"
+#endif
+
 #define q_throw(fmt, ...)                                                       \
   char *_Q__errbuf = malloc(Q_ASSERT_BUFFER_SIZE);                              \
-  sprintf(_Q__errbuf, fmt, __VA_ARGS__);                                        \
+  sprintf(_Q__errbuf, fmt _Q__ANSI_DIM "\n\tat %s <%s:%d>\x1b[0m", __VA_ARGS__, \
+    __func__, __FILE__, __LINE__);                                              \
   return _Q__errbuf
 
 #define q_should_eq(fmt1, fmt2, ...)                                            \
@@ -96,7 +103,7 @@
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
     if (strcmp(_Q__first, _Q__second) != 0) {                                   \
       q_throw("\x1b[31;7m%s\x1b[39;27m should equal \x1b[31;7m%s\x1b[39;27m",   \
-    _Q__first, _Q__second);                                                     \
+        _Q__first, _Q__second);                                                 \
     }                                                                           \
   }
 
