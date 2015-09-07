@@ -28,7 +28,7 @@
 #define QTEST_
 
 #ifdef _WIN32
-# pragma warning( disable : 4127 4710 )
+# pragma warning( disable : 4127 4710 4711 )
 #endif
 
 #include <stdio.h>
