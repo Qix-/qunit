@@ -35,6 +35,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef _WIN32
+# define _Q_SUC "*"
+#else
+# define _Q_SUC "✓"
+#endif
+
 #define q_test(_name)                                                           \
   do {                                                                          \
     const char *res = _name();                                                  \
@@ -42,7 +48,7 @@
       printf("  \x1b[31m! " #_name ":\x1b[0m %s\n", res);                       \
       failed = 1;                                                               \
     } else {                                                                    \
-      printf("  \x1b[32m✓\x1b[0m " #_name "\n");                                \
+      printf("  \x1b[32m" _Q_SUC "\x1b[0m " #_name "\n");                       \
       ++*passed;                                                                \
     }                                                                           \
     ++*count;                                                                   \
