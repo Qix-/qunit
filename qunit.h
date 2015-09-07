@@ -94,8 +94,8 @@
 
 #define q_throw(fmt, ...)                                                       \
   char *_Q__errbuf = malloc(Q_ASSERT_BUFFER_SIZE);                              \
-  sprintf(_Q__errbuf, fmt _Q__ANSI_DIM "\n\tat %s <%s:%d>\x1b[0m", __VA_ARGS__, \
-    __func__, __FILE__, __LINE__);                                              \
+  sprintf(_Q__errbuf, fmt _Q__ANSI_DIM "\n\tat %s:%d\x1b[0m", __VA_ARGS__,      \
+    __FILE__, __LINE__);                                              \
   return _Q__errbuf
 
 #define q_should_eq(fmt1, fmt2, ...)                                            \
