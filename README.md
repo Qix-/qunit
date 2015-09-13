@@ -24,6 +24,6 @@ q_end();
 ```
 
 # License
-Released to the Public Domain by JD Ballard.
+Released to the Public Domain by Josh Ballard.
 Written for the [AERO File Format](https://github.com/AERO-ff)
 for the Kleos [Foundation](https://github.com/KleosMD).
