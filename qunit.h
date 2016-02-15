@@ -20,12 +20,15 @@
  *   q_test(some_test);
  *   q_end();
  *
- *
  * Yes, really. That simple.
  * Built for the AERO File Format for the Kleos Foundation.
+ *
+ * Want TAP output? (testanything.org)
+ *
+ *   #define QUNIT_TAP
  */
-#ifndef QTEST_
-#define QTEST_
+#ifndef QUNIT__
+#define QUNIT__
 
 #ifdef _WIN32
 # pragma warning( disable : 4127 4710 4711 )
@@ -41,14 +44,24 @@
 # define _Q_SUC "✓"
 #endif
 
+#ifdef QUNIT_TAP
+# define TAP(x) x
+# define NOTAP(x)
+#else
+# define TAP(x)
+# define NOTAP(x) x
+#endif
+
 #define q_test(_name)                                                           \
   do {                                                                          \
     const char *res = _name();                                                  \
     if (res) {                                                                  \
-      printf("  \x1b[31m! " #_name ":\x1b[0m %s\n", res);                       \
+      NOTAP(printf("  \x1b[31m! " #_name ":\x1b[0m %s\n", res));                \
+      TAP(printf("not ok %d %s\n", *count + 1, #_name));                        \
       failed = 1;                                                               \
     } else {                                                                    \
-      printf("  \x1b[32m" _Q_SUC "\x1b[0m " #_name "\n");                       \
+      NOTAP(printf("  \x1b[32m" _Q_SUC "\x1b[0m " #_name "\n"));                \
+      TAP(printf("ok %d %s\n", *count + 1, #_name));                            \
       ++*passed;                                                                \
     }                                                                           \
     ++*count;                                                                   \
@@ -65,15 +78,16 @@
                                                                                 \
   int main(void) {                                                              \
     (void) unused;                                                              \
-    printf("\n");                                                               \
+    NOTAP(printf("\n"));                                                        \
     int total = 0;                                                              \
     int passed = 0;                                                             \
     int result = q_do_test(&total, &passed);                                    \
-    printf("\n\x1b[1m%s\x1b[0m with \x1b[1m%d/%d\x1b[0m passing "               \
+    NOTAP(printf("\n\x1b[1m%s\x1b[0m with \x1b[1m%d/%d\x1b[0m passing "         \
         "(\x1b[1m%d%%\x1b[0m)\n\n",                                             \
         (result ? "FAILED" : "OK"),                                             \
         passed, total,                                                          \
-        total ? (int)(((float)passed / (float)total) * 100.0f) : 100);          \
+        total ? (int)(((float)passed / (float)total) * 100.0f) : 100));         \
+    TAP(printf("1..%d\n", total));                                              \
     return result;                                                              \
   }                                                                             \
                                                                                 \
