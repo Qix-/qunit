@@ -1,9 +1,13 @@
-# QUnit
-The stupidly simple, but beautiful, unit testing framework.
-
-Literally three macros (with some optional assertion macros). That's it.
-
 ![Example screenshot](screenshot.png)
+
+---
+
+# QUnit
+The simple yet beautiful unit testing framework.
+
+Three macros. That's it.
+
+I've also included a few assertion macros (check the header file).
 
 ## Usage
 
@@ -24,6 +28,6 @@ q_end();
 ```
 
 # License
-Released to the Public Domain by Josh Ballard.
-Written for the [AERO File Format](https://github.com/AERO-ff)
-for the Kleos [Foundation](https://github.com/KleosMD).
+Released under [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). Go bananas.
+
+[![Licensed under Creative Commons 0 (CC0)](https://i.creativecommons.org/p/zero/1.0/88x31.png)](https://creativecommons.org/share-your-work/public-domain/cc0/)
