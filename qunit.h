@@ -54,6 +54,7 @@
 
 #define q_test(_name)                                                           \
   do {                                                                          \
+    extern const char * _name(void);                                            \
     const char *res = _name();                                                  \
     if (res) {                                                                  \
       NOTAP(printf("  \x1b[31m! " #_name ":\x1b[0m %s\n", res));                \
