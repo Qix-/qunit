@@ -17,7 +17,13 @@ const char *bar_test(void) {
   return 0;
 }
 
+const char *assert_test(void) {
+  q_assert(10 == 15);
+  return 0;
+}
+
 q_start();
 q_test(foo_test);
 q_test(bar_test);
+q_test(assert_test);
 q_end();
