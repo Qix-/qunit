@@ -123,7 +123,7 @@
     __FILE__, __LINE__);                                                        \
   return _Q__errbuf
 
-#define q_should_eq(fmt1, fmt2, ...)                                            \
+#define q_assert_eq(fmt1, fmt2, ...)                                            \
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
     if (strcmp(_Q__first, _Q__second) != 0) {                                   \
@@ -132,7 +132,7 @@
     }                                                                           \
   }
 
-#define q_should_not_eq(fmt1, fmt2, ...)                                        \
+#define q_assert_not_eq(fmt1, fmt2, ...)                                        \
   {                                                                             \
     _q_to_string(fmt1, fmt2, __VA_ARGS__);                                      \
     if (strcmp(_Q__first, _Q__second) == 0) {                                   \
